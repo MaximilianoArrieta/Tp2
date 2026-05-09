@@ -1,0 +1,50 @@
+﻿@page "/lista-personas"
+@using Login2.Models
+
+<PageTitle>Lista de Personas</PageTitle>
+
+<h3>Personal Registrado</h3>
+
+<table class="table table-hover table-striped shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Imagen</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Domicilio</th>
+            <th>Nacimiento</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in lista)
+        {
+            <tr>
+                <td><img src="@p.RutaImagen" width="40" class="rounded-circle" /></td>
+                <td>@p.NombreCompleto</td>
+                <td>@p.Email</td>
+                <td>@p.Domicilio</td>
+                <td>@p.FechaNacimiento.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<Persona> lista = new();
+
+    protected override void OnInitialized()
+    {
+        for (int i = 1; i <= 10; i++)
+        {
+            lista.Add(new Persona
+            {
+                Id = i,
+                NombreCompleto = $"Persona de Prueba {i}",
+                Email = $"correo{i}@ejemplo.com",
+                Domicilio = $"Calle Falsa {100 + i}",
+                FechaNacimiento = new DateTime(1990 + i, 1, i),
+                RutaImagen = "img/Usuario.jpg" 
+            });
+        }
+    }
+}
